@@ -13,13 +13,15 @@ Game::~Game() {
 }
 
 namespace {
-const int FPS;
-const int MaxFrameTime = 5000/FPS;
+	//Need to set max fps for constant physics accross all hardware
+	const int MAX_FPS = 50;
+	const int MAX_FRAME_TIME = 5000 / MAX_FPS;
 }
 void Game::gameLoop() {
 	Graphics graphics;
 	Input input;
 	SDL_Event event; //holds event that happens during frame
+	int LAST_UPDATE_TIME = SDL_GetTicks(); //ms since SDL Lib was init
 	//initializing game loop
 	int lastFrameUpdate = SDL_GetTicks();
 	while(true) {
@@ -41,6 +43,10 @@ void Game::gameLoop() {
 		if(input.hasKeyBeenPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
 		}
+		const int CURRENT_TIME_MS = SDL_GetTicks();
+		int PASSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
+		update(std::min(PASSED_TIME_MS, MAX_FRAME_TIME));//frame limiter
+		LAST_UPDATE_TIME = CURRENT_TIME_MS;
 	}
 }
 
