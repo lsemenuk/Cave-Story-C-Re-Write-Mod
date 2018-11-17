@@ -1,5 +1,6 @@
 #include "Sprite.h"
 #include "Graphics.h"
+#include "Globals.h"
 
  Sprite::Sprite() {};
 
@@ -25,7 +26,8 @@ Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int
 Sprite::~Sprite() {}
 
 void Sprite::draw(Graphics &graphics, int x, int y) {
-	SDL_Rect destinationRectangle = {x, y, _sourceRect.w, _sourceRect.h};
+	SDL_Rect destinationRectangle = {x, y, _sourceRect.w * globals::spriteScale, 
+		_sourceRect.h * globals::spriteScale};
 	
 	//does drawing to screen
 	graphics.blitSurface(_spriteSheet, &_sourceRect, &destinationRectangle);

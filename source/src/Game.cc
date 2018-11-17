@@ -21,6 +21,10 @@ void Game::gameLoop() {
 	Graphics graphics;
 	Input input;
 	SDL_Event event; //holds event that happens during frame
+	//assigning player sprite
+	_player = Sprite(graphics, "/rsrc/MyChar.png",0, 0, 16, 16, 100, 100);
+	//0,0 sets where the rectangle should begin for desired sprite 16,16 is 
+	//where box ends because each sprite is 16x16
 	int LAST_UPDATE_TIME = SDL_GetTicks(); //ms since SDL Lib was init
 	//initializing game loop
 	int lastFrameUpdate = SDL_GetTicks();
@@ -47,10 +51,17 @@ void Game::gameLoop() {
 		int PASSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
 		update(std::min(PASSED_TIME_MS, MAX_FRAME_TIME));//frame limiter
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
+
+		//need to display graphics to screen
+		draw(graphics);
 	}
 }
 
 void Game::draw(Graphics &graphics) {
+	//1. clear what is in renderer
+	graphics.clear();
+	_player.draw(graphics,100,100);//same coordinates passed in on line 25
+	graphics.flip();
 
 }
 
