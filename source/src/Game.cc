@@ -22,7 +22,9 @@ void Game::gameLoop() {
 	Input input;
 	SDL_Event event; //holds event that happens during frame
 	//assigning player sprite
-	_player = Sprite(graphics, "/rsrc/MyChar.png",0, 0, 16, 16, 100, 100);
+	_player = AnimatedSprite(graphics, "/rsrc/MyChar.png",0, 0, 16, 16, 100, 100, 100);
+	_player.setUpAnimations();
+	_player.playAnimation("RunLeft");//created manually for testing
 	//0,0 sets where the rectangle should begin for desired sprite 16,16 is 
 	//where box ends because each sprite is 16x16
 	int LAST_UPDATE_TIME = SDL_GetTicks(); //ms since SDL Lib was init
@@ -66,5 +68,5 @@ void Game::draw(Graphics &graphics) {
 }
 
 void Game::update(float elapseTime) {
-
+	_player.update(elapseTime);//calls animated sprite change animation
 }
