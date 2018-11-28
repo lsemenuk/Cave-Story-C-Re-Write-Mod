@@ -16,10 +16,10 @@ public:
 	virtual ~Sprite();
 	virtual void update();//eventually going to need to override
 	void draw(Graphics &graphics, int x, int y);
-private:
+protected:
 	SDL_Rect _sourceRect;
 	SDL_Texture* _spriteSheet;
-
+private:
 	float _x;
 	float _y;
 };
