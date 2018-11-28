@@ -3,6 +3,6 @@
 #include <SDL2/SDL.h>
 #include "Game.h"
 
-int main(int agrc, const char* argv[]) {
+int main(int agrc, char* argv[]) {
 	Game game;
 }
